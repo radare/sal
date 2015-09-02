@@ -1,3 +1,5 @@
+/* Copyright (C) 2006-2015 - BSD - pancake */
+
 /***************************************************************************
  *cr
  *cr            (C) Copyright 1995-2006 The Board of Trustees of the
