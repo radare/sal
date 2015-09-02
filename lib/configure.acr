@@ -4,8 +4,8 @@ VERSION 0.1
 
 LANG_C!
 
-MODULES = regex ;
-SUBDIRS regex ;
+MODULES = regex syscall ;
+SUBDIRS regex syscall ;
 
 /* expat library for xml parsing */
 CHKLIB expat

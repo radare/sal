@@ -1,4 +1,5 @@
 ## Sample Makefile.acr ##
+include ../config.mk
 VPATH=@VPATH@
 CC=@CC@
 CFLAGS=@CFLAGS@
@@ -7,12 +8,11 @@ OBJ=vm.o label.o libvm.o stack.o file.o list.o object.o integer.o string.o array
 BIN=sal
 DL_LIBS=@DL_LIBS@
 
-
 all: lib main.o
 	${CC} -L. -lsal ${LDFLAGS} main.o -o ${BIN}
 
 lib: ${OBJ}
-	${CC} ${DL_LIBS} -shared ${OBJ} ${LDFLAGS} -o libsal.so
+	${CC} ${DL_LIBS} -shared ${OBJ} ${LDFLAGS} -o libsal.$(EXT_SO)
 
 vm.o: vm.c vm.h libvm.h
 	 ${CC} ${CFLAGS} -c -o vm.o $<
@@ -51,7 +51,7 @@ register.o: register.c register.h vm.h list.h
 	 ${CC} ${CFLAGS} -c -o register.o $<
 
 clean:
-	-rm -f ${OBJ} ${BIN} libsal.so
+	-rm -f ${OBJ} ${BIN} libsal.$(EXT_SO)
 
 mrproper:
 	-rm -f Makefile

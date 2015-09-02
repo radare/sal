@@ -10,6 +10,6 @@ LANG_C!
 CHKINC! getopt.h
 
 SUBCONF lib ;
-SUBDIRS . ./src/ ./src/config.h ;
+SUBDIRS ./config.mk . ./src/ ./src/config.h ;
 
 REPORT PREFIX ;

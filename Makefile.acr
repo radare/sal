@@ -1,11 +1,4 @@
-VPATH=@VPATH@
-BINDIR=@BINDIR@
-LIBDIR=@LIBDIR@
-DATADIR=@DATADIR@
-INSTALL_DIR=@INSTALL_DIR@
-INSTALL_LIB=@INSTALL_LIB@
-INSTALL_DATA=@INSTALL_DATA@
-INSTALL_PROGRAM=@INSTALL_PROGRAM@
+include config.mk
 
 all:
 	cd src && ${MAKE} all
@@ -21,7 +14,7 @@ unit:
 install:
 	${INSTALL_DIR} ${BINDIR}
 	${INSTALL_PROGRAM} src/sal ${BINDIR}
-	${INSTALL_LIB} src/libsal.so ${LIBDIR}
+	${INSTALL_LIB} src/libsal.$(EXT_SO) ${LIBDIR}
 	cd lib && ${MAKE} install
 	mkdir -p ${DATADIR}/sal/include
 	${INSTALL_DATA} examples/sal.cpp ${DATADIR}/sal/include

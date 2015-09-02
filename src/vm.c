@@ -338,6 +338,18 @@ int vm_loadlib(vm_t *vm, const char *libname) {
 		strcat(libpath, libname);
 		handle = dlopen(libpath, RTLD_LAZY);
 		if (handle == NULL) {
+			char *s = malloc (strlen (libpath)+10);
+			sprintf (s, "%s.so", libpath);
+			handle = dlopen(s, RTLD_LAZY);
+			free (s);
+		}
+		if (handle == NULL) {
+			char *s = malloc (strlen (libpath)+10);
+			sprintf (s, "%s.dylib", libpath);
+			handle = dlopen(s, RTLD_LAZY);
+			free (s);
+		}
+		if (handle == NULL) {
 			VM_VERBOSE printf("vm.loadlib: %s\n", dlerror());
 		} else {
 			char **salsyms = dlsym(handle, "salsyms");
