@@ -1,6 +1,6 @@
 ## sample configure.acr ##
 PKGNAME sal
-VERSION 0.3
+VERSION 0.4
 CONTACT pancake ; pancake@nopcode.org
 
 USE_DL
@@ -11,5 +11,7 @@ CHKINC! getopt.h
 
 SUBCONF lib ;
 SUBDIRS ./config.mk . ./src/ ./src/config.h ;
+
+ARG_DISABLE HAVE_SYSCALL syscall Build without syscall. api ;
 
 REPORT PREFIX ;

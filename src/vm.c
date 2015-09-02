@@ -35,6 +35,9 @@
 #define ADD_VMLABEL(x,y) \
 	sym = (label_t *)label_new_native((vm_t *)vm, (char *)x, (void *)&libvm_##y); \
 	vm->labels = (list_t *)list_obj_set((list_t **)&vm->labels, (object_t *)sym);
+#if HAVE_SYSCALL
+#include "../lib/syscall/libsalsyscall.c"
+#endif
 
 #if defined(PROFILER)
 struct profiler {
@@ -99,6 +102,7 @@ void vm_init(vm_t *vm)
 	/* stack */
 	ADD_VMLABEL("drop", drop)
 	ADD_VMLABEL("push", push)
+	ADD_VMLABEL(".", push)
 	ADD_VMLABEL("pop", pop)
 	ADD_VMLABEL("dup", dup)
 	ADD_VMLABEL("swap", swap)
@@ -131,6 +135,13 @@ void vm_init(vm_t *vm)
 	ADD_VMLABEL("vm.dump", dump)
 	ADD_VMLABEL("vm.load", load)
 	ADD_VMLABEL("vm.loadlib", loadlib)
+
+#if HAVE_SYSCALL
+	ADD_VMLABEL("syscall.0", syscall_0);
+	ADD_VMLABEL("syscall.1", syscall_1);
+	ADD_VMLABEL("syscall.2", syscall_2);
+	ADD_VMLABEL("syscall.3", syscall_3);
+#endif
 }
 
 vm_t *main_vm = NULL;

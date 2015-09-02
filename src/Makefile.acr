@@ -8,6 +8,10 @@ OBJ=vm.o label.o libvm.o stack.o file.o list.o object.o integer.o string.o array
 BIN=sal
 DL_LIBS=@DL_LIBS@
 
+ifeq ($(HAVE_SYSCALL),1)
+CFLAGS+=-I${PWD} -DHAVE_SYSCALL=1
+endif
+
 all: lib main.o
 	${CC} -L. -lsal ${LDFLAGS} main.o -o ${BIN}
 

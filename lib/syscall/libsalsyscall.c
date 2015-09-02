@@ -36,7 +36,7 @@ static uint64_t *popNums (vm_t *vm, int n) {
 
 char *salsyms = "syscall.0,syscall.1,syscall.2,syscall.3";
 
-void sal_syscall_0(vm_t *vm)
+void libvm_syscall_0(vm_t *vm)
 {
 	uint64_t *a = popNums (vm, 1);
 	if (a) {
@@ -46,7 +46,7 @@ void sal_syscall_0(vm_t *vm)
 	}
 }
 
-void sal_syscall_1(vm_t *vm) {
+void libvm_syscall_1(vm_t *vm) {
 	uint64_t *a = popNums (vm, 2);
 	if (a) {
 		int ret = syscall (a[0], a[1]);
@@ -55,7 +55,7 @@ void sal_syscall_1(vm_t *vm) {
 	}
 }
 
-void sal_syscall_2(vm_t *vm) {
+void libvm_syscall_2(vm_t *vm) {
 	uint64_t *a = popNums (vm, 3);
 	if (a) {
 		int ret = syscall (a[0], a[1], a[2]);
@@ -64,7 +64,7 @@ void sal_syscall_2(vm_t *vm) {
 	}
 }
 
-void sal_syscall_3(vm_t *vm) {
+void libvm_syscall_3(vm_t *vm) {
 	uint64_t *a = popNums (vm, 4);
 	if (a) {
 		int ret = syscall (a[0], a[1], a[2], a[3]);

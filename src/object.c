@@ -33,8 +33,7 @@ obj_t *object_new(char *name)
 	object_t *obj = (object_t *)sal_malloc(sizeof(object_t));
 	obj->magic = OBJECT_MAGIC;
 	obj->refs  = 0;
-	strcpy(obj->name, name); // XXX vuln
-
+	strncpy (obj->name, name, sizeof (obj->name)-1);
 	return obj;
 }
 
@@ -62,13 +61,12 @@ obj_t *object_copy(object_t *tmp)
 		break;
 	case OBJECT_ARRAY:
 		j = array_size(tmp);
-		obj = array_new( j );
+		obj = array_new (j);
 		for (i = 0; i<j; i++)
 			array_set(obj, i, object_copy( array_get(tmp, i) ));
 		break;
-	default: //XXX
+	default: // XXX clone object with memleak risk
 		obj = object_new(tmp->name);
-		obj->magic = OBJECT_MAGIC;
 		memcpy(obj, tmp, sizeof(obj_t));
 		break;
 	}
@@ -88,7 +86,7 @@ obj_t *object_new_label(char *name, label_t *label)
 {
 	obj_t *obj = object_new(name);
 
-	strcpy(obj->name, name); // XXX overflow
+	strncpy(obj->name, name, sizeof (obj->name)-1);
 	obj->type = OBJECT_LABEL;
 
 	if (label == NULL) {
@@ -112,7 +110,7 @@ void object_dump(object_t *obj, int level)
 	}
 
 	if (obj->magic!=OBJECT_MAGIC) {
-		printf("\nobject_dump: Invalid MAGIC found in object. (%08x)\n", obj->magic);
+		fprintf(stderr, "\nobject_dump: Invalid MAGIC found in object. (%08x)\n", obj->magic);
 		exit(1);
 	}
 	if (obj->magic==LABEL_MAGIC) {

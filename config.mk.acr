@@ -13,3 +13,5 @@ EXT_SO=dylib
 else
 EXT_SO=so
 endif
+
+HAVE_SYSCALL=@HAVE_SYSCALL@
