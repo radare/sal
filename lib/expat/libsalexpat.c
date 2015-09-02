@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+void label_call_back(vm_t *vm, label_t *l);
+
 char *salsyms = "expat.new,expat.parse,expat.free";
 
 struct sal_expat {

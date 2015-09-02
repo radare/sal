@@ -30,9 +30,10 @@ int integer_get_value_i(char *arg)
 	int i;
 
 	if (arg == NULL) return 0;
-	for(;*arg==' ';arg=arg+1);
-	for(i=0;arg[i]==' ';i++);
-	for(;arg[i]=='\\';i++); i++;
+	for(;*arg==' ';arg=arg+1) {}
+	for(i=0;arg[i]==' ';i++) {}
+	for(;arg[i]=='\\';i++) {}
+	i++;
 
 	if (arg[i] == 'x' && i>0 && arg[i-1]=='0')
 		sscanf(arg, "0x"OFF_FMTx, &ret);

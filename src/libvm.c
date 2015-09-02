@@ -1168,6 +1168,9 @@ void libvm_add(vm_t *vm)
 				phloat+=f+f2;
 				type = OBJECT_FLOAT;
 				break;
+			default:
+				fprintf (stderr, "Unsupported float conversion\n");
+				break;
 			}
 			break;
 		default:
@@ -1332,7 +1335,7 @@ void libvm_push(vm_t *vm)
 	switch (type) {
 	case OBJECT_POINTER:
 		type2 = pointer_type(vm, word);
-		if (type2 != -1) {
+		if (type2 != OBJECT_INVALID) {
 			switch(type2) {
 			case OBJECT_REGISTER:
 				obj = pointer_new(word+1, obj);
@@ -1751,12 +1754,22 @@ void libvm_printf(vm_t *vm)
 			case OBJECT_REGISTER:
 				obj = obj->data;
 				goto chk_type;
-				break;
 			case OBJECT_FLOAT: // XXX broken
 				args[i] = (char *)obj->data;
 				break;
 			case OBJECT_STRING:
 				args[i] = obj->data;
+				break;
+			default:
+#if 0
+			case OBJECT_HASH:
+			case OBJECT_NATIVE:
+			case OBJECT_ARRAY:
+			case OBJECT_POINTER:
+			case OBJECT_INVALID:
+			case OBJECT_LABEL:
+#endif
+				fprintf (stderr, "Unsupported Type Error\n");
 				break;
 			}
 		}
@@ -1801,9 +1814,11 @@ void libvm_print(vm_t *vm)
 		}
 	}
 
-	if (not==0)
+	if (not==0) {
 		VM_VERBOSE VM_PRINT("print %d\n", times);
-	else	VM_VERBOSE VM_PRINT("println %d\n", times);
+	} else {
+		VM_VERBOSE VM_PRINT("println %d\n", times);
+	}
 
 	if (times == 0)
 		return;

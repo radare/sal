@@ -12,7 +12,8 @@ typedef enum {
 	OBJECT_POINTER  = 5,
 	OBJECT_ARRAY    = 6,
 	OBJECT_HASH     = 7,
-	OBJECT_NATIVE   = 8
+	OBJECT_NATIVE   = 8,
+	OBJECT_INVALID  = -1
 } object_type;
 
 #define OBJECT_MAGIC (char)0x86

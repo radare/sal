@@ -77,7 +77,7 @@ void sal_regex_free(vm_t *vm)
 
 	if (obj->type == OBJECT_POINTER) {
 		struct sal_regex *se = pointer_get_value(obj);
-		if (!memcmp(obj->data, MAGIC)) {
+		if (!memcmp (obj->data, MAGIC, 4)) {
 			regfree(&se->preg);
 			free(obj->data);
 		}
