@@ -21,11 +21,11 @@ main:
 	push 12
 	push "Hello World\n"
 	push 1
-	push 0x2000004
-	; syscall.3
+	push 4
+	syscall.3
 
 	; exit
-	push 11
+	push 0
 	push 1
 	syscall.1
 
