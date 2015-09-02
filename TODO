@@ -1,0 +1,27 @@
+.--------.
+| / /||  |
+| \|-||  |
+| /| ||_ |
+`--------'
+
+implement namespaces:
+ io. - create a list of namespaces and split opcode list as views
+ sns - set name space
+
+DISCUSS:
+========
+cmp - return in flags not in stack
+jf  - jump if flags != 0
+
+
+DONE?
+=====
+ja - jump above ; done
+jb - jump below ; done via jb
+
+
+PROFILER
+========
+CFLAGS+=-DPROFILER
+opcodes executed
+execution time

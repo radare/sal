@@ -1,0 +1,38 @@
+Preprocessing sal sources with cpp
+==================================
+
+You can use the macros provided by CPP together with SAL to ease development.
+Producing a more readable source codes. The CPP preprocessing slows down the
+execution, and is recommended to be used just as a preprocessor to generate
+plain sal assembly files to be executed.
+
+ATM there's no defined macro standard. So, help will be appreciated.
+
+For example:
+============
+
+----[ "sal.h" ]----------------
+#define open(z,x,y) \
+    push y push x open pop z
+#define readln(x,y) \
+    push x readln pop y
+#define print_r(x) \
+    push x println 1
+#define close(x) \
+    push x close
+-----------8<------------------
+
+----[ "source.sal.cpp" ]-------
+#include "sal.h"
+
+open(r0, "/etc/motd", 0)
+readln(r0, r1)
+print_r(r1)
+close(r0)
+-----------8<------------------
+
+To run this example just call:
+
+$ cpp source.sal.cpp | sal -
+Linux pl2 2.6.15-26-386 #1 PREEMPT Thu Aug 3 02:52:00 UTC 2006 i686 GNU/Linux
+$

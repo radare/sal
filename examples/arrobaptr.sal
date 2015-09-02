@@ -1,0 +1,39 @@
+;------------------;
+; pointers example ;
+;------------------;
+
+; %r0 = &%r1
+  push &%r1
+  pop  %r0 
+
+; *%r0 = 3 ; %r1 = 3
+  push 3
+  pop  *%r0
+
+  push %r1
+  println 1
+
+  push 0
+  vm.exit
+
+
+;-------------------------------------;
+; pointers example with arroba labels ;
+;-------------------------------------;
+
+mov@2: ; "dst", "src"
+  push 0 push %av aget
+  pop %r3 ; %r3 = &%r0
+
+  push 1 push %av aget
+  pop *%r3
+  ret
+
+main:
+  mov@2 &%r0 "Hello World"
+
+  push %r0
+  println 1
+
+  push 0
+  vm.exit

@@ -1,0 +1,95 @@
+;
+; TCP/IP client/server snippet with sal
+;
+; ./sal net 4445
+
+do_listen:
+	; %r0 is listening at port 9696
+	push %r2 ; %r2 is the port number
+	tcp.listen
+	jf cannot_listen
+	; getf jnz cannot_listen
+	pop %r0
+
+	push %r2
+	push "Listening at port "
+	println 2
+
+	; %r1 is the client connection
+	push %r0
+	tcp.accept
+	pop %r1
+
+	push "Hello World\n"
+	push %r1
+	write 1
+
+	vm.sleep 1
+
+	; .. and finally
+	push %r1 close
+	push %r0 close
+	vm.sleep 1
+	nop
+	push 0
+	vm.exit
+
+show_usage:
+	push "Usage: net [port]"
+	println 1
+	push 0
+	vm.exit
+
+eof:
+	push "*EOF*"
+	println 1
+	push 1
+	vm.exit
+
+cannot_connect:
+	push "Connection refused."
+	println 1
+	push 1
+	vm.exit
+
+cannot_listen:
+	push "Cannot listen at this port!"
+	println 1
+	push 1
+	vm.exit
+
+main:
+	; Check arguments for port number
+	push %av
+	asz
+	push 1
+	cmp
+	jnz show_usage
+	push 0
+	push %av
+	aget
+	pop %r2 ; = port
+
+	vm.fork
+	jz do_listen
+	vm.sleep 1
+
+	; Main thread
+	push %r2 ; 9696
+	push "127.0.0.1"
+	tcp.connect
+	jf cannot_connect
+	pop %r0
+
+	push %r0
+	readln
+	jf eof
+
+	push "String received: "
+	println 2
+
+	push %r0
+	close
+
+	push "Connection closed."
+	println 1

@@ -1,0 +1,65 @@
+SAL2
+====
+* redesigned apis
+* object oriented
+* binary form
+* binary serialization - native calls here too
+* structs ***
+* autoboxing
+* everything indexed
+* static stack, not dinamic
+* better automagic garbage collector
+* namespaces
+* framespaces and visibility of objects
+
+Classes:
+ - integer
+ - float
+ - string
+ - ...
+
+Each instance of each class have one identifier.
+this id is only for internal purposes.
+
+Each object can have a method for each opcode:
+ integer_add -> 
+ integer_neg -> 
+
+push 5
+push 3
+add 2
+- 3.add(5)
+
+Binary form:
+------------
+BYTE = OPCODE
+  FF = extension library opcode
+  01         = add
+  90         = nop
+  FF 01 02   = extension library 01, method 02
+
+   -> io.readline
+
+Variable input:
+---------------
+;; TODO: this needs a better design with autoboxing
+  stack         sal_stack_pop()
+  arguments     file_read()
+
+Return values:
+--------------
+  stack
+  register pointers
+
+calltables:
+-----------
+void *calltable[256*sizeof(void *)];
+
+memset(&calltable, '\0', sizeof(calltable));
+calls++
+calltable[0] = (void *)&libvm_int;
+calltable[1] = (void *)&libvm_nop;
+
+structs:
+--------
+

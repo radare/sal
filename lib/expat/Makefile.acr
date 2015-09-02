@@ -1,0 +1,24 @@
+VPATH=@VPATH@
+INSTALL_DATA=@INSTALL_DATA@
+INSTALL_LIB=@INSTALL_LIB@
+LIBDIR=@LIBDIR@
+DATADIR=@DATADIR@
+HELPERS=-L../../src -lsal
+CFLAGS+=-I ../../src
+LDFLAGS+=-shared -lexpat
+OBJ=libsalexpat.o
+
+.PHONY: all test clean install
+
+all: ${OBJ}
+	${CC} ${LDFLAGS} ${HELPERS} ${OBJ} -o libsalexpat.so
+
+install:
+	${INSTALL_LIB} libsalexpat.so ${LIBDIR}
+	${INSTALL_DATA} expat.cpp ${DATADIR}/sal/include
+
+test:
+	${CC} test.c -lexpat -g -o test
+
+clean:
+	-rm -f *.so *.o

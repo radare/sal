@@ -1,0 +1,6 @@
+push 2
+push 5
+dup 2
+println 2
+swap 2
+println 2

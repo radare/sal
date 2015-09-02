@@ -1,0 +1,10 @@
+sal tutorial
+============
+
+* Introduction
+  ------------
+  SAL is a virtual machine that executes a dinamic assembly
+  language and manage different kind of objects.
+
+  It implements a stack, registers, flags, labels with
+  library extensions

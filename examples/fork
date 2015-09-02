@@ -1,0 +1,22 @@
+#!/usr/bin/env sal
+;
+; Sample vm.fork usage
+;
+
+th1:
+  push "hello"
+  println 1
+  vm.sleep 2
+  th1
+
+th2:
+  push "world"
+  println 1
+  vm.sleep 2
+  th2
+
+main:
+  vm.fork
+  jz th1
+  vm.sleep 1
+  th2

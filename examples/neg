@@ -1,0 +1,22 @@
+/*
+push "one"
+push "two"
+push 2
+anews
+vm.dump
+neg
+vm.dump
+
+println 1
+push 0
+vm.exit
+*/
+
+;--
+; pop %r0
+; push %r0
+push %av
+vm.dump
+neg
+pop %r1
+ vm.dump

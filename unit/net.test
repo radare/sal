@@ -1,0 +1,79 @@
+$test={
+name=>"Loopback network test",
+reply=>"Hello World",
+code=><<EOF
+;
+; TCP/IP client/server snippet with sal
+;
+; ./sal net 4445
+
+do_listen:
+	; %r0 is listening at port 9696
+	push %r2 ; %r2 is the port number
+	tcp.listen
+	getf jnz cannot_listen
+	pop %r0
+
+	; %r1 is the client connection
+	push %r0
+	tcp.accept
+	pop %r1
+
+	push "Hello World\n"
+	push %r1
+	write 1
+
+	vm.sleep 0.1
+
+	; .. and finally
+	push %r1 close
+	push %r0 close
+	nop
+	push 0
+	vm.exit
+
+eof:
+	push "*EOF*"
+	println 1
+	push 1
+	vm.exit
+
+cannot_connect:
+	push "Connection refused."
+	println 1
+	push 1
+	vm.exit
+
+cannot_listen:
+	push "Cannot listen at this port!"
+	println 1
+	push 1
+	vm.exit
+
+main:
+	push 9696
+	pop %r2
+
+	vm.fork
+	jz do_listen
+	vm.sleep 0.1
+
+	; Main thread
+	push %r2
+	push "127.0.0.1"
+	tcp.connect
+	getf
+	jnz cannot_connect
+	pop %r0
+
+	push %r0
+	readln
+	getf
+	jnz eof
+
+	println 1
+
+	push %r0
+	close
+EOF
+};

@@ -1,0 +1,25 @@
+# 1 "../examples/looping.sal.cpp"
+# 1 "<built-in>"
+# 1 "<command line>"
+# 1 "../examples/looping.sal.cpp"
+
+
+
+
+
+
+# 1 "../examples/sal.cpp" 1
+# 8 "../examples/looping.sal.cpp" 2
+
+
+push 3 dup 1 loop:
+  println 1
+  push 3 dup 1 loop2:
+    push "  "
+    println 2
+    push 3 dup 1 loop3:
+      push "    "
+      println 2
+    push -1 add 2 dup 1 dup 1 jnz loop3 drop 2
+  push -1 add 2 dup 1 dup 1 jnz loop2 drop 2
+push -1 add 2 dup 1 dup 1 jnz loop drop 2

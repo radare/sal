@@ -1,0 +1,52 @@
+#!/usr/bin/env sal
+
+usage:
+	push "Usage: regex.sal \"regular-expression\" < file"
+	println 1
+	push 0
+	vm.exit
+
+error:
+	push "Invalid regular expression"
+	println 1
+	push 1
+	vm.exit
+
+; ============================
+;  main()
+; ============================
+main:
+	; load library
+	push "libsalregex.so"
+	vm.loadlib
+
+	push %av asz
+	jz usage
+
+	; initialize the regular expression
+	push 0 push %av aget
+	regex.new
+	getf jnz error
+	pop %r0
+
+loop:
+	push 0
+	readln
+	getf jnz eof
+	pop %r1
+
+	push %r1
+	push %r0
+
+	regex.match
+	getf jz loop
+
+	; match!
+	push %r1
+	println 1
+	loop
+
+eof:
+	; free the parser
+	push %r0
+	regex.free

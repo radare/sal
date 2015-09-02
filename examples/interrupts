@@ -1,0 +1,24 @@
+my-exit:
+	push "my-exit"
+	println 1
+;	vm.exit
+	ret
+
+main:
+	; Set our now INT_SHDW interrupt handler
+	push my-exit
+	push 0
+	push %iv
+	aset     ; %iv[0] = my-exit
+
+	; call my-exit subroutine forced by a vm.exit call
+	push 0
+	vm.exit
+
+	; call my-exit subroutine thru an interrupt call
+	push 0
+	int
+
+	; print "end" as a mark and call my-exit at EOF
+	push "end"
+	println 1

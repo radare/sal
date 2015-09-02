@@ -1,0 +1,18 @@
+#!/usr/bin/env sal
+; Float and Integer Sleep
+;
+
+vm.sleep 0.2
+push "0.2" println 1
+vm.sleep 0.2
+push "0.2" println 1
+
+vm.sleep 0.5
+push "0.5" println 1
+vm.sleep 0.5
+push "0.5" println 1
+
+vm.sleep 1
+push "1" println 1
+vm.sleep 1
+push "1" println 1

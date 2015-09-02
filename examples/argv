@@ -1,0 +1,20 @@
+/*
+ * Argument parsing
+ */
+
+show_usage:
+	push "Give me one argument"
+	println 1
+	push 0
+	vm.exit
+main:
+	push %av
+	asz
+	push 1
+	cmp
+	jnz show_usage
+	push 0
+	push %av
+	aget
+	push "Your name is "
+	println 2

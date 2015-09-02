@@ -1,0 +1,90 @@
+;--------
+; Argument types
+
+(value) = "string"
+	= integer
+	= flo.at
+	= %register
+	= &%register
+	= *%register
+
+(times) = integer
+
+(label) = label_name
+	= label_name@num_args
+
+;-------------
+; Object types
+;
+; "src/object.h"
+	OBJECT_STRING   = 0, // ascii and bin 
+	OBJECT_INTEGER  = 1,
+	OBJECT_FLOAT    = 2,
+	OBJECT_LABEL    = 3,
+	OBJECT_REGISTER = 4,
+	OBJECT_POINTER  = 5,
+	OBJECT_ARRAY    = 6,
+	OBJECT_HASH     = 7,
+	OBJECT_NATIVE   = 8
+
+
+;----------
+; Registers
+
+  The SAL virtual machine have a set of 9 general purpose registers
+  that you can use as 'variables' to store any kind of object.
+
+	%r0 .. %r9 ; general purpose registers
+
+	%pc        ; program counter
+	%sp        ; stack pointer
+
+	%av        ; argument vector
+	%iv        ; interrupt vector
+	%ev        ; environment vector
+
+;----------
+; Flags
+	getf
+	setf
+	jf
+
+;--------
+; Opcodes
+	push (value)
+	pop (value)
+	dup (times)
+	swap (times)
+	add (times)
+	println (times)
+	aset
+	aget
+
+; execution branch
+	(label)
+	call (label)
+	ret
+	jmp (label)
+	jz (label)
+	jnz (label)
+	jf (label) * ; 
+
+
+;---
+; IO operations
+	open
+	close
+	read
+	readln
+	readpw
+	write
+	print
+	println
+
+;---
+; VM control
+;
+	int
+	vm.sleep
+	vm.fork
+	vm.dump

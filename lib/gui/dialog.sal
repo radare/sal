@@ -1,0 +1,13 @@
+push "libsalgui.so"
+vm.loadlib
+
+gui.init
+
+push 2
+push "Are you sure?"
+push "dialog window"
+gui.dialog
+println 1
+
+push 0
+vm.exit

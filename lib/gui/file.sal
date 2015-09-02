@@ -1,0 +1,19 @@
+gui.init
+
+ push 0
+ push "Select one file..."
+ gui.dialog.file
+
+ getf jnz nofile
+ push "File: "
+ println 2
+
+ push 0
+ vm.exit
+
+nofile:
+	push "No file selected:"
+	println 1
+
+ push 1
+ vm.exit

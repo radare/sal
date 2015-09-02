@@ -1,0 +1,14 @@
+push 10
+shift 1
+println 1
+; 5
+
+push "pancake"
+shift 2
+println 1
+; panca
+
+push "pancake"
+shift -2
+println 1
+; ncake

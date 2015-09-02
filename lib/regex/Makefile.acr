@@ -1,0 +1,21 @@
+LIBDIR=@LIBDIR@
+DATADIR=@DATADIR@
+INSTALL_LIB=@INSTALL_LIB@
+INSTALL_DATA=@INSTALL_DATA@
+VPATH=@VPATH@
+HELPERS=-L../../src -lsal
+CFLAGS+=-I ../../src
+LDFLAGS+=-shared
+OBJ=libsalregex.o
+
+all: ${OBJ}
+	${CC} ${LDFLAGS} ${HELPERS} ${OBJ} -o libsalregex.so
+
+install:
+	${INSTALL_LIB} libsalregex.so ${LIBDIR}
+	${INSTALL_DATA} regex.cpp ${DATADIR}/sal/include
+
+clean:
+	-rm -f *.so *.o
+
+.PHONY: all install clean

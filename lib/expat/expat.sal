@@ -1,0 +1,66 @@
+; char_element (string between tags)
+; ==================================
+char_element:
+	; pop %r0 -> string
+	push "string: "
+	println 2
+	ret
+
+; end_element (close tag)
+; ===========================
+end_element:
+	pop %r0
+	push "> " push %r0 push "</"
+	println 3
+	ret
+
+; start_element (open tag)
+; ===========================
+start_element:
+	pop %r0 ; tag name
+	pop %r1 ; attributes
+	push "> " push %r0 push "<"
+	println 3
+	call show_attributes
+	ret
+
+show_attributes:
+	; %r0 = tag name
+	; %r1 = attributes
+	push "Atributes:"
+	println 1
+	push "opt"
+	push %r1
+	aget
+	getf jnz err
+	push " * opt = "
+	println 2
+	ret
+err:
+	push "Attribute has no value!"
+	println 1
+	vm.exit
+
+; ============================
+;  main()
+; ============================
+main:
+	; load library
+	push "libsalexpat.so"
+	vm.loadlib
+
+	; initialize the xml parser
+	push char_element
+	push end_element
+	push start_element
+	expat.new
+	pop %r0
+
+	; parse a string
+	push "<foo opt=\"true\" opt2=\"false\">Hello World</foo>";
+	push %r0
+	expat.parse
+
+	; free the parser
+	push %r0
+	expat.free

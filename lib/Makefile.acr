@@ -1,0 +1,13 @@
+VPATH=@VPATH@
+MODULES=@MODULES@
+
+all:
+	@for a in ${MODULES}; do cd $$a && ${MAKE} ; cd .. ; done
+	@echo "modules built."
+
+install:
+	@for a in ${MODULES}; do cd $$a && ${MAKE} install ; cd .. ; done
+	@echo "modules installed."
+
+clean:
+	cd expat && ${MAKE} clean

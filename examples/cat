@@ -1,0 +1,46 @@
+#!/usr/bin/env sal
+;
+; Usage cat 
+;
+
+file_not_found:
+	push "File not found. Try /help."
+	println 1
+	push 1
+	vm.exit
+
+main:
+	push %av asz
+	push 0
+	cmp
+	jz use_stdin
+	push 0 push %av aget
+	dup 1
+	push "/help"
+	cmp
+	jz show_help
+	dup 1
+	push "Reading from: "
+	println 2
+	push 0 swap 2 open 
+	getf jnz file_not_found
+	loop
+
+show_help:
+	push "Usage: cat [file]"
+	println 1
+	push 1
+	vm.exit
+
+use_stdin:
+	push 0
+
+loop:
+	dup 1
+	readln
+	getf jnz eof
+	println 1
+	loop
+eof:
+	push 0
+	vm.exit

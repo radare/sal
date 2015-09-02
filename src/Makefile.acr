@@ -1,0 +1,57 @@
+## Sample Makefile.acr ##
+VPATH=@VPATH@
+CC=@CC@
+CFLAGS=@CFLAGS@
+LDFLAGS=@LDFLAGS@
+OBJ=vm.o label.o libvm.o stack.o file.o list.o object.o integer.o string.o array.o register.o interrupt.o pointer.o hash.o float.o alloc.o
+BIN=sal
+DL_LIBS=@DL_LIBS@
+
+
+all: lib main.o
+	${CC} -L. -lsal ${LDFLAGS} main.o -o ${BIN}
+
+lib: ${OBJ}
+	${CC} ${DL_LIBS} -shared ${OBJ} ${LDFLAGS} -o libsal.so
+
+vm.o: vm.c vm.h libvm.h
+	 ${CC} ${CFLAGS} -c -o vm.o $<
+
+label.o: label.c vm.h label.h
+	 ${CC} ${CFLAGS} -c -o label.o $<
+
+libvm.o: libvm.c vm.h stack.h object.h libvm.h
+	 ${CC} ${CFLAGS} -c -o libvm.o $<
+
+stack.o: stack.c stack.h
+	 ${CC} ${CFLAGS} -c -o stack.o $<
+
+file.o: file.c file.h
+	 ${CC} ${CFLAGS} -c -o file.o $<
+
+list.o: list.c list.h object.h
+	 ${CC} ${CFLAGS} -c -o list.o $<
+
+main.o: main.c vm.h
+	 ${CC} ${CFLAGS} -c -o main.o $<
+
+object.o: object.c list.h vm.h object.h
+	 ${CC} ${CFLAGS} -c -o object.o $<
+
+integer.o: integer.c object.h
+	 ${CC} ${CFLAGS} -c -o integer.o $<
+
+string.o: string.c object.h
+	 ${CC} ${CFLAGS} -c -o string.o $<
+
+array.o: array.c array.h
+	 ${CC} ${CFLAGS} -c -o array.o $<
+
+register.o: register.c register.h vm.h list.h
+	 ${CC} ${CFLAGS} -c -o register.o $<
+
+clean:
+	-rm -f ${OBJ} ${BIN} libsal.so
+
+mrproper:
+	-rm -f Makefile

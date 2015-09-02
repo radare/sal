@@ -1,0 +1,44 @@
+#define array_new(x) push x anew
+push 13
+anew    ; pops the array size and pushes an array object
+pop %r0
+
+#define array_size(x) push x asz
+push %r0
+asz     ; pops the array object and pushes it's size
+
+#define array_set(x,y,z) push z push y push x aset 
+/* array_set(%r0, 0, "pancake") */
+push "an-example-string"
+push 1
+push %r0
+aset    ; 
+
+push 1
+push %r0
+aget    ; gets the first element of the array
+getf jnz failed
+
+#define array_resize(x,y) push y push x arsz
+push 10
+push %r0
+arsz     ; pops the array and resize't to 10
+
+push "All array tests have been passed."
+println 1
+push 0
+vm.exit
+
+failed:
+	vm.dump
+	push "Empty cell?"
+	println 1
+	push 1
+	vm.exit
+
+/*
+push 1
+popd    ; pop the last object and destroy't
+
+popa    ; empty stack
+*/

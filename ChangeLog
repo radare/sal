@@ -1,0 +1,28 @@
+0: 7730f2b0
+author: pancake@dazo
+date: 20070520-03:46:52
+
+  * new opcode 'printf'.
+  * add example for printf
+  * use 'jf' opcode instead of getf+fnz
+  * loadlib code revised
+
+
+1: 8c57829c
+author: pancake@dazo
+date: 20070519-08:22:11
+
+  * mul, add, div, .. have been remodeled to look as a unitary test :)
+  * Add 'jf' opcode (jump if flags are != FLAGS_CLEAR)
+  * Lot of fixups on the mul, add, div opcodes
+  * Some code reorganization and cleanup
+  * Add 'is_register' helper function
+  * Import the 'get_offset' function of radare for magic string to integer conversions
+
+
+2: 766c307f
+author: pancake@dazo
+date: 20070506-13:49:01
+
+  * Initial import into the pvc repository
+

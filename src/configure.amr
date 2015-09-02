@@ -1,0 +1,13 @@
+## sample configure.amr ##
+CDIR ./
+
+CSOURCES  vm.c label.c libvm.c stack.c file.c list.c main.c object.c integer.c string.c ;
+CINCLUDES  string.h stdlib.h stdio.h getopt.h ;
+
+CDEPS vm.h vm.c label.c libvm.c main.c object.c ;
+CDEPS label.h label.c ;
+CDEPS libvm.h vm.c libvm.c ;
+CDEPS stack.h libvm.c stack.c ;
+CDEPS file.h file.c ;
+CDEPS list.h list.c object.c ;
+CDEPS object.h libvm.c list.c object.c integer.c string.c ;

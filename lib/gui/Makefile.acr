@@ -1,0 +1,22 @@
+VPATH=@VPATH@
+INSTALL_LIB=@INSTALL_LIB@
+INSTALL_DATA=@INSTALL_DATA@
+LIBDIR=@LIBDIR@
+DATADIR=@DATADIR@
+HELPERS=-L../../src -lsal
+CFLAGS+=-I ../../src
+LDFLAGS+=-shared
+CFLAGS+=`pkg-config --cflags gtk+-2.0`
+LDFLAGS+=`pkg-config --libs  gtk+-2.0`
+OBJ=libsalgui.o
+
+all: ${OBJ}
+	${CC} ${LDFLAGS} ${HELPERS} ${OBJ} -o libsalgui.so
+
+install:
+	${INSTALL_LIB} libsalgui.so ${LIBDIR}
+	${INSTALL_DATA} gui.cpp ${DATADIR}/sal/include
+	${INSTALL_DATA} gui.m4 ${DATADIR}/sal/include
+
+clean:
+	-rm -f *.so *.o

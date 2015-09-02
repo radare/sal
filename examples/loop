@@ -1,0 +1,44 @@
+#!/usr/bin/env sal
+;
+; This is a sample hello world loop
+;
+
+; Read name
+main:
+  push "Enter your name: "
+   print 1
+   push 0
+   readln
+   dup 1
+   pop r0
+  jz main  ; repeat until name != ""
+  
+  println 0
+  push "Your name is '" 
+  push r0
+  push "'."
+  swap 3
+  println 3
+  println 0
+
+; Counts from 2 to 0
+push 3
+loop0:
+  push -1
+  add 2
+  dup 1
+  push " Counter: "
+  push r0
+  println 3
+  dup 1
+  jnz loop0
+pop r0
+println 0
+
+; Show version number infinitely sleep 1 second
+label0:
+  vm.version
+  push "Version: "
+  println 2
+  vm.sleep 1
+  label0

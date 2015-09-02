@@ -1,0 +1,29 @@
+$test = {
+name  => "Basic math aritmethics",
+reply => <<EOF
+5
+AAA
+3bloodpop
+EOF
+,
+code  => <<EOF
+; test basic addition
+ push 2
+ push 3
+ add 2
+ println 1
+
+; test string * number
+ push "A"
+ push 3
+ mul
+ println 1
+
+; test str+str+num
+ push "pop"
+ push "blood"
+ push 3
+ add 3
+ println 1
+EOF
+};

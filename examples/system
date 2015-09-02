@@ -1,0 +1,24 @@
+#!/usr/bin/env sal
+;
+; vm.system example
+;
+
+oops:
+	push "^D"
+	println 1
+	push 0
+	vm.exit
+
+main:
+	println 0
+	push "This is a pseudo-shell based on system() calls. Press ^C for quit"
+	println 1
+	println 0
+
+prompt:
+	push "$ " print 1
+	push 0
+	readln
+	jf oops
+	vm.system
+	prompt

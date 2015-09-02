@@ -1,0 +1,22 @@
+$test = {
+name=>"Count down",
+reply=><<EOF
+2
+1
+0
+EOF
+,
+code=><<EOF
+; Counts from 2 to 0
+push 3
+loop0:
+  push -1
+  add 2
+  dup 1
+  println 1
+  dup 1
+  jnz loop0
+pop r0
+println 0
+EOF
+};

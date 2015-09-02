@@ -1,0 +1,79 @@
+[ main ]
+
+  - parses command line arguments
+  - creates a sal vm
+  - streams stdin or load and run a file
+  - if "main" label is set, jump there
+
+[ vm ]
+
+  - major handlers for the virtual machine
+
+  External:
+  =========
+
+    vm_new(int argc, char **argv, int stack_size)
+
+    vm_init(vm_t *)
+
+    vm_shutdown
+       * 
+
+    vm_loadlib(vm_t *, char *libname)
+       * Loads a binary library to implement native opcodes or so
+
+    vm_load(vm_*t, char *filename)
+       * Loads a sal script file
+
+    vm_fetch(vm_t *)
+       * Fetches one instruction and execute
+
+    vm_run(vm_t *, char *filename)
+       * Execute the vm_fetch() loop
+
+
+
+  Internal: (static)
+  =========
+
+     vm_execute(vm_t *, char *opcode)
+
+
+[ object ]
+   - type
+       string   ; push "hello"
+       int      ; push 3
+       float    ; push 3.3
+       ptr      ; push *%r0     ; pushes a reference to this register
+       array    ; push 3 anew
+       label    ; foo: push foo
+       register ; push %r0
+       hash     ;
+   - ops on objects
+       add
+       mul
+       
+
+pointer example:
+----------------
+ push 3
+ pop %r0   ; %r0 = 3
+
+ push &%r0
+ pop *%r0
+
+'*' posicio de memoria del q hi ha a continuacio
+  push &"food"
+
+  push %r0   ; agafa el valor de %r0 i el posa a la pila
+  push &%r0  ; fa un push de un punter al registre %r0
+
+  pop %r0    ; fa un pop a %r0
+  pop *%r0   ; fa un pop a on apunta el registre %r0
+
+  push *%r1
+  pop %r0
+  push "pop"
+  pop *%r0   ; %r1 = "pop"
+
+

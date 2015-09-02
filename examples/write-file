@@ -1,0 +1,20 @@
+/*
+ * Simple example of file writing with sal.
+ */
+
+main:	push 2
+	push "testfile"
+	open
+	pop r0
+	push 23
+	push "Hello World "
+	push r0
+	write 2
+	push r0
+	close
+
+	push "./testfile has been created"
+	println 1
+
+	push 0
+	vm.exit

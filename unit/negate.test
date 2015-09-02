@@ -1,0 +1,35 @@
+$test = {
+name => "NEG opcode array test",
+reply =><<EOF
+gnisrever
+onetwo
+twoone
+EOF
+,
+code=><<EOF
+; Create new array
+push "reversing"
+neg
+println 1
+
+push "one"
+push "two"
+push 2
+anews
+pop %r0
+
+push 0 push %r0 aget
+push 1 push %r0 aget
+dup 2
+println 2
+push %r0
+
+neg
+pop %r0
+
+push 0 push %r0 aget
+push 1 push %r0 aget
+println 2
+
+EOF
+};

@@ -1,0 +1,15 @@
+$test = {
+name=>"arroba labels",
+reply=>"Hello World",
+code=><<EOF
+printstr\@1:
+  push 0 push %av aget
+  println 1
+  ret
+
+main:
+  printstr\@1 "Hello World"
+  push 0
+  vm.exit
+EOF
+};

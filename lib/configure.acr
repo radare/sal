@@ -1,0 +1,27 @@
+/* sal extension libraries */
+PKGNAME sal-lib
+VERSION 0.1
+
+LANG_C!
+
+MODULES = regex ;
+SUBDIRS regex ;
+
+/* expat library for xml parsing */
+CHKLIB expat
+IF HAVE_LIB_EXPAT {
+	MODULES += expat ;
+	SUBDIRS expat ;
+}
+
+/* gui library for gtk and ncurses */
+PKGCFG GTK_CFLAGS GTK_LDFLAGS gtk+-2.0
+IF HAVE_PKGCFG_GTK_2_0 {
+	MODULES += gui ;
+	SUBDIRS gui ;
+}
+
+
+/* final steps */
+REPORT MODULES ;
+SUBDIRS . ;

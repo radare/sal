@@ -1,0 +1,6 @@
+push "pop"
+push "blood"
+push 3
+vm.dump
+add 3
+println 1

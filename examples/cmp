@@ -1,0 +1,23 @@
+/*
+ * Password checker
+ */
+invalid:
+	push "Invalid password. Try again."
+	println 1
+
+main:
+	push "Password: "
+	print 1
+
+	push 0
+	readpw  /* read password */
+
+	println 0
+
+	push "xxx123"
+	cmp
+	jnz invalid
+	
+	push "Password is OK!"
+	println 1
+

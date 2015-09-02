@@ -1,0 +1,29 @@
+/*
+ * Shows the first line of the /etc/motd file
+ */
+
+failure:
+	push "Cannot open file"
+	println 1
+	push 1
+	vm.exit
+
+main:
+	push 0
+	push "/etc/motd"
+	open
+	dup 1
+
+	pop %r0
+	push -1
+	cmp
+	jz failure
+
+	push %r0
+	readln
+	println 1
+
+	push %r0
+	close
+	push 0
+	vm.exit

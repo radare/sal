@@ -1,0 +1,37 @@
+VPATH=@VPATH@
+BINDIR=@BINDIR@
+LIBDIR=@LIBDIR@
+DATADIR=@DATADIR@
+INSTALL_DIR=@INSTALL_DIR@
+INSTALL_LIB=@INSTALL_LIB@
+INSTALL_DATA=@INSTALL_DATA@
+INSTALL_PROGRAM=@INSTALL_PROGRAM@
+
+all:
+	cd src && ${MAKE} all
+	cd lib && ${MAKE} all
+
+clean:
+	cd src && ${MAKE} clean
+	cd lib && ${MAKE} clean
+
+unit:
+	cd unit && ${MAKE}
+
+install:
+	${INSTALL_DIR} ${BINDIR}
+	${INSTALL_PROGRAM} src/sal ${BINDIR}
+	${INSTALL_LIB} src/libsal.so ${LIBDIR}
+	cd lib && ${MAKE} install
+	mkdir -p ${DATADIR}/sal/include
+	${INSTALL_DATA} examples/sal.cpp ${DATADIR}/sal/include
+	${INSTALL_DATA} examples/sal.m4 ${DATADIR}/sal/include
+
+todo:
+	cat TODO
+	grep -e TODO -e XXX src/*.c src/*.h
+	
+mrproper:
+	-rm -f Makefile
+
+.PHONY: unit

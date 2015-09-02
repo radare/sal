@@ -1,0 +1,74 @@
+#!/usr/bin/env sal
+;
+; Unix-like 'cp' command with sal
+;
+; pancake <pancake@youterm.com>
+;
+
+main:
+	push %av asz     ; argc
+	push 2
+	cmp
+	jnz show_usage   ; if (argc!=2) jmp show_usage
+
+	; Open source file
+	push 0           ; read-only
+	push 0 push %av aget
+	dup 1 pop %r3
+	open             ; open argv[0], "r"
+	getf jnz open_error
+	pop %r0
+
+	; Open destination file
+	push 2           ; rw (aka write+create
+	push 1 push %av aget
+	dup 1 pop %r3
+	open             ; open argv[1], "w"
+	getf jnz open_error
+	pop %r1
+
+	; init vars
+	push 0 pop %r9  ; total byte counter
+
+	; %r0 = src
+	; %r1 = dst
+copy_loop:
+	push 256
+	push %r0
+	read
+	getf jnz eof
+	dup 1 ; dup string returned
+	asz
+	push %r9
+	add 2
+	pop %r9
+
+	push %r1
+
+	write 1
+
+	copy_loop
+
+eof:
+	push " bytes copied."
+	push %r9
+	println 2
+
+	push %r1
+	close
+
+	push 0
+	vm.exit
+
+open_error:
+	push %r3
+	push "Cannot open: "
+	println 2
+	push 2
+	vm.exit
+
+show_usage:
+	push "Usage: cp [orig] [dest]"
+	println 1
+	push 1
+	vm.exit

@@ -1,0 +1,17 @@
+$test={
+name=>"Pointers with registers",
+reply=>"3",
+code=><<EOF
+push &%r1
+pop  %r0  ; %r0 = &%r1
+
+push 3
+pop  *%r0 ; *%r0 = 3 ; %r1 = 3
+
+push %r1
+println 1
+
+push 0
+vm.exit
+EOF
+};

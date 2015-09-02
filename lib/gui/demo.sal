@@ -1,0 +1,84 @@
+#!/usr/bin/env sal
+;
+; button + progressbar example with sal.gui
+;
+;-- author: pancake <pancake@youterm.com>
+;
+main:
+  ; initialize gui api
+  push "libsalgui.so"
+  vm.loadlib
+  gui.init
+
+  ; initialize numeric variables
+  push 0 pop %r3       ; r3 = counter
+  push 10 pop %r4      ; r4 = direction
+
+  ; create main window
+  push vm.exit
+  push "hello world"
+  gui.window
+  pop %r0              ; r0 = window
+
+  ; resize't
+  push 200  ; height
+  push 300  ; width
+  push %r0  ; window
+  gui.window.size
+
+  gui.vbox pop %r9    ; r9 is vbox
+
+  ; create progress bar
+  gui.progress
+  dup 1
+  pop %r8             ; r8 = progress bar
+  push %r9
+  gui.add.pack
+
+  ;-- not needed, so initially is 0
+  ; push 0
+  ; push %r8
+  ; gui.progress.set
+
+  ; r1 = "ok button"
+  push click push "gtk-ok" gui.button pop %r1
+
+  ; add "ok" button
+  push %r1 push %r9 gui.add
+
+  ; window.add(vbox)
+  push %r9 ; vbox
+  push %r0 ; window
+  gui.add
+
+  ; show main window
+  push %r0 gui.show
+
+  ; main loop
+  gui.loop
+
+  ; bye bye
+  push 0
+  vm.exit
+
+;
+; click callback
+;
+click:
+  ; if %r3 > 100 %r4 = -10
+  push %r3 push -100 add 2 jn skip_chk1 push -10 pop %r4 skip_chk1:
+
+  ; if %r3 < 0   %r4 = 10
+  push %r3 neg jn skip_chk2 push 10 pop %r4 skip_chk2:
+
+  ; %r3+=%r4
+  push %r3 push %r4 add 2 pop %r3
+
+  push %r3
+  push %r8
+  gui.progress.set
+
+  push "Button clicked!"
+  println 1
+
+  ret

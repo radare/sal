@@ -1,0 +1,19 @@
+DRAFT * DRAFT * DRAFT * DRAFT * DRAFT * DRAFT * DRAFT * DRAFT * DRAFT * DRAFT
+  * DRAFT * DRAFT * DRAFT * DRAFT * DRAFT * DRAFT * DRAFT * DRAFT * DRAFT *
+
+bytebuffers
+===========
+SAL provides a way to use dinamically allocated buffered arrays of bytes.
+This can be used to store binary data.
+
+For example:
+============
+  db 100   " pushes a 100 bytes array object on stack
+ 
+  push 100
+  dbs      " pushes a second
+
+  dup 2
+
+  cpy 0 1
+  set 0 1

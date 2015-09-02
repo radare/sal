@@ -1,0 +1,33 @@
+;
+; sal math
+;
+
+  push "10 / 3.2 = "
+  print 1
+  push 3.2 push 10 div 
+  println 1
+
+  push "10 / 3 = "
+  print 1
+  push 3 push 10 div 
+  println 1
+
+  push "10.8 / 3.2 = "
+  print 1
+  push 3.2 push 10.8 div 
+  println 1
+
+  push "pancake / 3 = ['pan','cak','e']"
+  println 1
+
+  push 3 push "pancake" div pop %r0
+  push 0 push %r0 aget push " - " print 2
+  push 1 push %r0 aget push " - " print 2
+  push 2 push %r0 aget push " - " println 2
+
+  push "'food.is.lame' / '.' = ['food','is','lame']"
+  println 1
+  push "," push "food,is,lame" div pop %r0
+  push 0 push %r0 aget push " - " print 2
+  push 1 push %r0 aget push " - " print 2
+  push 2 push %r0 aget push " - " println 2

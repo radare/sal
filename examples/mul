@@ -1,0 +1,41 @@
+  push "pop x 3 = "
+  print 1
+  push "pop"
+  push 3
+  mul
+  println 1
+
+  push "3 x pop = "
+  print 1
+  push "pop"
+  push 3
+  mul
+  println 1
+
+  push "3 x 3 = "
+  print 1
+  push 3
+  push 3
+  mul
+  println 1
+
+  push "3.3 x 3 = "
+  print 1
+  push 3.3
+  push 3
+  mul
+  println 1
+  
+  push "3 x 3.3 = "
+  print 1
+  push 3
+  push 3.3
+  mul
+  println 1
+
+  push "3.3 x 3.3 = "
+  print 1
+  push 3.3
+  dup 1
+  mul
+  println 1

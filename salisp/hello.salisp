@@ -1,0 +1,30 @@
+; salisp example
+; push 3 push 4 +
+
+(native add
+
+(define '+ "push ${1} push ${2} add")
+
+(while (1)
+	(begin
+		(define %r0 (+ 3 (+ 2 2)))
+	)
+)
+
+; execution:
+;
+; api:
+;  -> get_keyword
+;  -> char *args[]
+;  -> int nargs;
+;
+; get keyword
+;  - while
+;  - begin
+;  - define
+;  - +
+;  - -
+;
+; 1 - search for the inner parenthesi
+;   - execute it
+

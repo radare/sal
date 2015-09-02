@@ -1,0 +1,33 @@
+$test = {
+name => "Callback related tests",
+reply => <<EOF
+main
+subroutine
+label0
+EOF
+,
+code => <<EOF
+subroutine:
+  push "subroutine"
+  println 1
+  ret
+
+label0:
+  push "label0"
+  println 1
+  push 0
+  vm.exit
+
+main:
+  push "main"
+  println 1
+
+  call subroutine
+
+  push label0
+  ret
+
+  push 0
+  vm.exit
+EOF
+};

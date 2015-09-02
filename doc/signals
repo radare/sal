@@ -1,0 +1,18 @@
+Signal handling with sal
+========================
+
+SHUTDW - VM shutdown
+SIGINT - ^C
+STACKE - Stack is empty
+ZERODV - Division by 0
+INVOBJ - Invalid object
+
+Every signal has a related Signal ID reflected as an integer object.
+
+push ShutdownHandler
+push 0
+signal
+
+--
+
+

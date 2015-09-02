@@ -1,0 +1,38 @@
+
+$test={
+name=>"Basic array tests",
+reply=><<EOF
+3
+2
+World
+Hello
+EOF
+,
+code=><<EOF
+push 3 anew pop %r0
+push "Hello" push 0 push %r0 aset
+push "World" push 1 push %r0 aset
+
+push %r0 asz
+println 1
+
+push 2 push %r0 arsz pop %r0
+
+push %r0 asz pop %r1
+push %r1
+println 1
+
+; print all elements of the array (size..0)
+push %r1
+loop:
+ push -1
+ add 2
+ dup 1
+ ; Elements to print
+ push %r0 aget
+ println 1
+ ;--
+ dup 1
+ jnz loop
+EOF
+};

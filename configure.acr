@@ -1,0 +1,15 @@
+## sample configure.acr ##
+PKGNAME sal
+VERSION 0.3
+CONTACT pancake ; pancake@nopcode.org
+
+USE_DL
+
+LANG_C!
+
+CHKINC! getopt.h
+
+SUBCONF lib ;
+SUBDIRS . ./src/ ./src/config.h ;
+
+REPORT PREFIX ;

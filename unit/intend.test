@@ -1,0 +1,33 @@
+$test={
+name=>"interrupt shutdown trio",
+reply=><<EOF
+my-exit
+my-exit
+the-end
+my-exit
+EOF
+,
+code=><<EOF
+my-exit:
+	push "my-exit"
+	println 1
+	ret
+
+main:
+	; Set our now INT_SHDW interrupt handler
+	push my-exit
+	push 0
+	push %iv
+	aset     ; %iv[0] = my-exit
+
+	; call my-exit subroutine forced by a vm.exit call
+	push 0
+	vm.exit
+
+	; call my-exit subroutine thru an interrupt call
+	push 0
+	int
+	push "the-end"
+	println 1
+EOF
+};

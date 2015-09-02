@@ -1,0 +1,23 @@
+#!/usr/bin/env sal
+#
+
+push -1
+pop %r0
+
+loop:
+  ; i++
+  push 1
+  push %r0
+  add 2
+  pop %r0
+
+  push %r0
+  push %ev
+  aget
+  getf jnz eof
+  println 1
+  loop
+
+eof:
+  push 0
+  vm.exit

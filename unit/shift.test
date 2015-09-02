@@ -1,0 +1,24 @@
+$test = {
+name=>"Shifting strings",
+reply=><<EOF
+5
+panca
+ncake
+EOF
+,
+code=><<EOF
+push 10
+shift 1
+println 1
+
+push "pancake"
+shift 2
+println 1
+; panca
+
+push "pancake"
+shift -2
+println 1
+; ncake
+EOF
+};

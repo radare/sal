@@ -1,0 +1,35 @@
+Debugging with SAL
+==================
+
+Sal implements some labels and flags to debug the build and execution.
+
+This is:
+
+compile time:
+=============
+  -DPROFILER
+
+    Shows a final profile report of executed opcodes and more info.
+
+
+runtime:
+========
+  -v #
+  VERBOSE=1
+
+     print out each opcode executed by the VM.
+
+  -d
+  DEBUG=1
+
+     Starts sal as a debugger with a prompt to type commands.
+
+
+virtual machine:
+================
+
+  Usually when you're coding a sal program you need to know what's the
+  state of the stack, registers, flags, etc.
+
+  For this purpose you can use 'vm.dump' opcode to dump the current
+  virtual machine state.

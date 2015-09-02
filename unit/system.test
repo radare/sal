@@ -1,0 +1,8 @@
+$test={
+name=>"system()",
+reply=>`uname -a`,
+code=><<EOF
+push "uname -a"
+vm.system
+EOF
+};

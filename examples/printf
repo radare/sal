@@ -1,0 +1,4 @@
+push 3
+push "food"
+push "world"
+printf "hello %s 0x%03x (%d)\n"

@@ -1,0 +1,125 @@
+#!/usr/bin/env sal
+;
+; Graphical user interface example for sal
+;
+;                                          --pancake
+
+;
+; Usage:
+;  $ sal example.sal
+;
+;  +-[ Hello World ]--+
+;  |                  |
+;  | Name [         ] |
+;  |                  |
+;  | [______ok______] |
+;  +------------------+
+;
+;
+
+; Global registers description
+;------------------------------
+; %r0 : main window
+; %r1 : vbox
+; %r2 : text entry for 'name'
+
+main:
+	push "libsalgui.so"
+	vm.loadlib
+
+	gui.init           ; automatically takes %av register
+
+	push vm.exit
+	push "Hello world"
+	gui.window
+	getf jnz error
+	pop %r0            ; create a new window
+
+	push 2
+	gui.vbox           ; creates 3 rows
+	pop %r1
+
+;		push "tri"
+;		push "two"
+;		push "one"
+		push ","
+		push "one,two,tri"
+		div
+		gui.combo 1
+		pop %r4
+
+		push %r4
+		push %r1
+		gui.add.pack
+
+		push "Enter your nickname:"
+		gui.label
+		push %r1
+		gui.add.pack
+
+		; push "xx"         ; default value
+		; push "Name"     ; description text
+		gui.entry
+		dup 1
+		pop %r2         ;
+
+		; set default text for the entry
+		push "your nickname here"
+		push %r2
+		gui.entry.set
+
+		push %r1
+		gui.add.pack         ; vbox[0] = entry
+
+		push ok_clicked
+		push "ok"
+		gui.button      ; button 'ok
+
+		push %r1
+		gui.add.pack         ; vbox[1] = button
+
+	gui.hbbox
+	pop %r3
+		push ok_clicked push "gtk-ok" gui.button push %r3 gui.add
+		push cancel_click push "gtk-cancel" gui.button push %r3 gui.add
+	push %r3
+	push %r1
+	gui.add
+
+	push %r1
+	push %r0
+	gui.add            ; add (window, vbox)
+
+	push %r0
+	gui.show
+	;
+	; main loop
+	;
+	gui.loop
+
+;
+; ok button clicked
+;
+ok_clicked:
+	push %r2
+	gui.entry.get
+	push "Your name is: "
+	println 2
+
+	push %r4
+	gui.combo.get
+	push "Option: "
+	println 2
+
+cancel_click:
+	push 0
+	vm.exit
+
+;
+; Something weird has happened
+;
+error:
+	push "Cannot create window"
+	println 1
+	push 1
+	vm.exit

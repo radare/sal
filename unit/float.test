@@ -1,0 +1,29 @@
+$test={
+name=>"Floating point math",
+reply=><<END
+4.400
+8.800
+2.640
+END
+,
+code=><<END
+push 2.2
+push 2
+mul
+dup 1
+println 1
+
+push 2
+mul
+dup 1
+println 1
+
+push 0.3
+mul
+dup 1
+println 1
+
+push 0
+vm.exit
+END
+};

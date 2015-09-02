@@ -1,0 +1,9 @@
+#ifndef _INCLUDE_CONFIG_H_
+#define _INCLUDE_CONFIG_H_
+
+#define PKGNAME "@PKGNAME@"
+#define VERSION "@VERSION@"
+#define DATADIR "@DATADIR@"
+#define LIBDIR "@LIBDIR@"
+
+#endif

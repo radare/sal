@@ -1,0 +1,4 @@
+push "Hello World!"
+dup 1
+pop r0
+println 1

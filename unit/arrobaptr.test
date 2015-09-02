@@ -1,0 +1,22 @@
+$test={
+name=>"Pointer test with arroba labels",
+reply=>"Hello World",
+code=><<EOF
+mov\@2:
+  push 0 push %av aget
+  pop %r3 ; %r3 = &%r0
+
+  push 1 push %av aget
+  pop *%r3
+  ret
+
+main:
+  mov\@2 &%r0 "Hello World"
+
+  push %r0
+  println 1
+
+  push 0
+  vm.exit
+EOF
+};

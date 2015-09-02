@@ -1,0 +1,26 @@
+;
+; RetRun
+;
+
+subroutine:
+  push "subroutine: achieved!"
+  println 1
+  ret
+
+label0:
+  push "label0: retrun"
+  println 1
+  push 0
+  vm.exit
+
+main:
+  push "main: entry point"
+  println 1
+
+  call subroutine
+
+  push label0
+  ret
+
+  push 0
+  vm.exit
