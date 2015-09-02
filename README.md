@@ -7,9 +7,9 @@
          Scripting Assembly Language
 ```
 
-Author: pancake <pancake@nopcode.org>
-ProjectStartsDate: 2006
-License: BSD
+* Author: pancake <pancake@nopcode.org>
+* ProjectStartsDate: 2006
+* License: 4-Clause BSD
 
 SAL is a portable and lightweight virtual machine
 that executes a dynamic assembly language useful
@@ -20,40 +20,20 @@ some new labels and load files or streams.
 
 The language itself is structured by objects of
 different types:
-
-# Labels:
-
-    Labels are used to mark some points of the
-    execution code where you'll be able to jump
-    there later.
-
-    Labels can be native or virtual.
-
-    Virtual labels are defined by a loaded file
-    with certain offset.
-
-    Native labels could be defined internally by
-    calling
- 
-# Strings:
-
-    Strings are objects that store a dynamic
-    zero-terminated array of characters.
-
-# Integers:
-
-    Integer objects are handled as simple 32/64
-    integer values.
-
-# Floating point:
-
-    Same as above, but for float/double types.
-
-# Pointers:
-
-    You can use pointers and register references.
-    See examples fmi.
-
+```
+typedef enum {
+  OBJECT_STRING   = 0,// zero-terminated char arrays
+  OBJECT_INTEGER  = 1, // 32bit numeric values
+  OBJECT_FLOAT    = 2, // float/double
+  OBJECT_LABEL    = 3, // source labels
+  OBJECT_REGISTER = 4, // virtual registers
+  OBJECT_POINTER  = 5, // pointers and register refs
+  OBJECT_ARRAY    = 6, // array of objects
+  OBJECT_HASH     = 7, // hashtable
+  OBJECT_NATIVE   = 8, // native code
+  OBJECT_INVALID  = -1
+} object_type;
+```
 
 EXAMPLES
 ========
@@ -64,3 +44,46 @@ A simple hello world with SAL:
 $ echo 'push "Hello World!" println 1' | sal -
 Hello World!
 ```
+
+But you can also run some syscalls, note that '.' is an alias for push:
+
+```
+$ echo '. 12 . "Hello World\n" . 1 . 4 syscall.3' | sal -
+```
+
+There are unit tests, examples and libraries to demonstrate how to write graphical applications, network clients, manage arrays, parse XML and other common tasks.
+
+The SAL VM supports interrupt events and hooking system to handle division by zero, and other kind of errors.
+
+The CPP preprocessor (or any other) can be used to provide a higher-level abstraction:
+```
+#include "sal.cpp"
+
+eof:
+  println("EOF");
+  close(%r0)
+  exit(0)
+
+cannot_connect:
+  println("Cannot connect to remote host")
+  exit(1)
+
+main:
+  connect("radare.org",80)
+    on_error(cannot_connect)
+      is(%r0)
+  write(%r0,"GET /r/ HTTP/1.0\r\nHost: www.radare.org\r\n\r\n")
+
+again:
+  readln(%r0)
+    on_error(eof)
+      is(%r1)
+  print(%r1)
+  again
+```
+
+### Future
+
+At some point, SAL can be reimplemented to support JIT or just be translated to native code, using the `ragg2` emiters for example. But this will drop some dynamism and needs some more review.
+
+SAL can be injected into processes in order to have an interactive shell inside the target program.
