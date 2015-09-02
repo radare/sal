@@ -1,0 +1,30 @@
+LIBDIR=@LIBDIR@
+DATADIR=@DATADIR@
+INSTALL_LIB=@INSTALL_LIB@
+INSTALL_DATA=@INSTALL_DATA@
+VPATH=@VPATH@
+HELPERS=-L../../src -lsal
+CFLAGS+=-I ../../src
+LDFLAGS+=-shared
+OBJ=libsalsyscall.o
+EXT_SO=so
+EXT_SO=dylib
+
+all: ${OBJ} libsal.$(EXT_SO)
+	${CC} ${LDFLAGS} ${HELPERS} ${OBJ} \
+		-o libsalsyscall.$(EXT_SO)
+
+run: libsal.$(EXT_SO)
+	../../src/sal syscall.sal
+
+libsal.$(EXT_SO):
+	ln -fs ../../src/libsal.$(EXT_SO) .
+
+install:
+	${INSTALL_LIB} libsalsyscall.so ${LIBDIR}
+	${INSTALL_DATA} syscall.cpp ${DATADIR}/sal/include
+
+clean:
+	-rm -f *.so *.o
+
+.PHONY: all install clean

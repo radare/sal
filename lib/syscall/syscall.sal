@@ -1,0 +1,33 @@
+#!/usr/bin/env sal
+
+usage:
+	push "Usage: syscall.sal sn arg..."
+	println 1
+	push 0
+	vm.exit
+
+; ============================
+;  main()
+; ============================
+main:
+	; load library
+	push "libsalsyscall"
+	vm.loadlib
+
+	push %av asz
+	jz usage
+
+	; write
+	push 12
+	push "Hello World\n"
+	push 1
+	push 0x2000004
+	; syscall.3
+
+	; exit
+	push 11
+	push 1
+	syscall.1
+
+	push 0
+	vm.exit
