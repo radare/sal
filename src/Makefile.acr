@@ -13,7 +13,10 @@ CFLAGS+=-I${PWD} -DHAVE_SYSCALL=1
 endif
 
 all: lib main.o
-	${CC} -L. -lsal ${LDFLAGS} main.o -o ${BIN}
+	${CC} $(OBJ) ${LDFLAGS} main.o -o ${BIN}
+
+# shared executable (for debian?)
+#${CC} -L. -lsal ${LDFLAGS} main.o -o ${BIN}
 
 lib: ${OBJ}
 	${CC} ${DL_LIBS} -shared ${OBJ} ${LDFLAGS} -o libsal.$(EXT_SO)

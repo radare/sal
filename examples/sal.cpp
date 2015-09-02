@@ -28,6 +28,7 @@
 #define readln(x) push x readln
 #define write(x,y) push y push x write 1
 #define println(x) push x println 1
+#define print(x) push x print 1
 #define close(x) push x close
 #define exit(x) push x vm.exit
 

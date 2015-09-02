@@ -10,14 +10,14 @@ cannot_connect:
   exit(1)
 
 main:
-  connect("nopcode.org",80)
+  connect("radare.org",80)
     on_error(cannot_connect)
       is(%r0)
-  write(%r0,"GET /blog/ HTTP/1.1\r\nHost: www.nopcode.org\r\n\r\n")
+  write(%r0,"GET /r/ HTTP/1.0\r\nHost: www.radare.org\r\n\r\n")
 
 again:
   readln(%r0)
     on_error(eof)
-      is (%r1)
-  println(%r1)
+      is(%r1)
+  print(%r1)
   again
