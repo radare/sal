@@ -1,3 +1,4 @@
+include ../../config.mk
 LIBDIR=@LIBDIR@
 DATADIR=@DATADIR@
 INSTALL_LIB=@INSTALL_LIB@
@@ -9,13 +10,13 @@ LDFLAGS+=-shared
 OBJ=libsalregex.o
 
 all: ${OBJ}
-	${CC} ${LDFLAGS} ${HELPERS} ${OBJ} -o libsalregex.so
+	${CC} ${LDFLAGS} ${HELPERS} ${OBJ} -o libsalregex.$(EXT_SO)
 
 install:
-	${INSTALL_LIB} libsalregex.so ${LIBDIR}
+	${INSTALL_LIB} libsalregex.$(EXT_SO) ${LIBDIR}
 	${INSTALL_DATA} regex.cpp ${DATADIR}/sal/include
 
 clean:
-	-rm -f *.so *.o
+	-rm -f *.$(EXT_SO) *.o
 
 .PHONY: all install clean
