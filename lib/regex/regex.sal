@@ -19,6 +19,7 @@ main:
 	; load library
 	push "libsalregex.so"
 	vm.loadlib
+	jz error
 
 	push %av asz
 	jz usage

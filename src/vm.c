@@ -373,6 +373,7 @@ int vm_loadlib(vm_t *vm, const char *libname) {
 				printf("This is not a sal library.\n");
 			}
 
+			sal_stack_push (vm->stack, integer_new_i (1));
 			//dlclose(handle); // IMHO no
 			return 1;
 		}
@@ -381,6 +382,7 @@ int vm_loadlib(vm_t *vm, const char *libname) {
 
 	fprintf(stderr, "vm.loadlib: Library '%s' not found!\n", libname);
 
+	sal_stack_push (vm->stack, integer_new_i (0));
 	return 0;
 }
 

@@ -46,7 +46,7 @@ err:
 ; ============================
 main:
 	; load library
-	push "libsalexpat.so"
+	push "libsalexpat"
 	vm.loadlib
 
 	; initialize the xml parser

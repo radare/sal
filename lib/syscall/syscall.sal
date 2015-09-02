@@ -1,9 +1,9 @@
 #!/usr/bin/env sal
 
-usage:
-	push "Usage: syscall.sal sn arg..."
+cannot_find_library:
+	push "Cannot find SAL syscall library"
 	println 1
-	push 0
+	push 1
 	vm.exit
 
 ; ============================
@@ -13,9 +13,7 @@ main:
 	; load library
 	push "libsalsyscall"
 	vm.loadlib
-
-	push %av asz
-	jz usage
+	jz cannot_find_library
 
 	; write
 	push 12
